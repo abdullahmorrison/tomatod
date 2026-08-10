@@ -12,8 +12,19 @@ const Z_NEAR = 1;
 const MIN_FLIGHT = 520;
 const MAX_FLIGHT = 820;
 
+// How far past each edge a tomato may land, as a fraction of the canvas height. A splat
+// is stamped centred on its impact point, so a range stopping exactly at the edges still
+// leaves the border thinner than the middle: half of every edge splat falls outside the
+// canvas. Letting impacts sit just off-screen is what fills the corners at the same
+// density as the centre, and costs only the few throws that land mostly out of frame.
+const EDGE_OVERSHOOT = 0.05;
+
 function rand(a, b) {
   return a + Math.random() * (b - a);
+}
+
+function clamp01(value) {
+  return value < 0 ? 0 : value > 1 ? 1 : value;
 }
 
 class Tomato {
@@ -41,9 +52,13 @@ class Tomato {
     this.x0 = rand(-0.05, 1.05) * w;
     this.y0 = h + rand(60, 160);
 
-    // Landing anywhere on screen, kept off the extreme edges so the splat stays visible.
-    this.x2 = rand(0.06, 0.94) * w;
-    this.y2 = rand(0.08, 0.88) * h;
+    // Landing anywhere at all: the whole canvas, edges and corners included. The margin
+    // is a fraction of the height on BOTH axes, because splat size is derived from the
+    // height -- taking it from the width would make the side margin wider than the top
+    // and bottom on any landscape source, which is the uneven border this replaced.
+    const over = EDGE_OVERSHOOT * h;
+    this.x2 = rand(-over, w + over);
+    this.y2 = rand(-over, h + over);
 
     // Control point above both ends, so the throw arcs up and over rather than
     // sliding along a straight line.
@@ -53,7 +68,9 @@ class Tomato {
     // Depth follows the landing height: something that lands high on screen is
     // further away, so it arrives smaller and leaves a smaller splat. Without this
     // every impact is the same size and the flood looks flat.
-    const depth = 1 - this.y2 / h;
+    // Clamped because a landing point may now sit just past the top or bottom edge,
+    // which would otherwise push the size beyond the range this was tuned for.
+    const depth = 1 - clamp01(this.y2 / h);
     this.zFar = 2.15 + depth * 1.5 + rand(-0.15, 0.15);
     // Sized as a fraction of the canvas rather than in fixed pixels, so it looks the
     // same whether the source is 720p or 1080p.
