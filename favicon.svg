@@ -1,0 +1,12 @@
+<!-- The 16x16 sprite from src/sprite.js, one rect per run of pixels. Generated
+     from that file's own geometry rather than drawn by hand, so the icon in the
+     tab is the tomato that actually gets thrown. Regenerate if the sprite changes. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <path fill="#2e6b1f" d="M7 2h2v1h-2zM7 3h2v1h-2zM3 5h1v1h-1zM12 5h1v1h-1zM5 6h1v1h-1zM10 6h1v1h-1z"/>
+  <path fill="#4f9e35" d="M7 4h2v1h-2zM4 5h8v1h-8z"/>
+  <path fill="#6d1408" d="M3 6h1v1h-1zM12 6h1v1h-1zM2 7h1v1h-1zM13 7h1v1h-1zM1 8h1v1h-1zM14 8h1v1h-1zM1 9h1v1h-1zM14 9h1v1h-1zM1 10h1v1h-1zM14 10h1v1h-1zM1 11h1v1h-1zM14 11h1v1h-1zM2 12h1v1h-1zM13 12h1v1h-1zM3 13h1v1h-1zM12 13h1v1h-1zM5 14h2v1h-2zM9 14h2v1h-2z"/>
+  <path fill="#e03a1e" d="M4 6h1v1h-1zM6 6h4v1h-4zM11 6h1v1h-1zM3 7h1v1h-1zM7 7h6v1h-6zM2 8h2v1h-2zM7 8h7v1h-7zM2 9h10v1h-10zM2 10h9v1h-9zM2 11h8v1h-8zM3 12h5v1h-5zM4 13h3v1h-3z"/>
+  <path fill="#f4694a" d="M4 7h3v1h-3zM4 8h3v1h-3z"/>
+  <path fill="#a82613" d="M12 9h2v1h-2zM11 10h3v1h-3zM10 11h4v1h-4zM8 12h5v1h-5zM7 13h5v1h-5zM7 14h2v1h-2z"/>
+</svg>
+
