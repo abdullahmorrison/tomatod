@@ -2,7 +2,7 @@
 
 Let Twitch chat throw tomatoes at you, live on stream.
 
-![Tomatoes splattered across a stream](docs/screenshot.png)
+![A round of tomatoes thrown at a stream, then wiped](docs/demo.gif)
 
 A mod or the broadcaster types `!tomato`. A countdown appears, and for the next 30 seconds
 anyone typing `TomatoTime` hurls a tomato from the viewer's side of the screen at the
