@@ -44,3 +44,8 @@ so the streamer never edits a file. `normalizeChannel` and `clampDuration` are s
 on purpose — the same value arrives from the URL, from chat, and from the setup page,
 and if those ever disagree a link points at a channel nobody is talking in, with no
 error anywhere. Twitch accepts a JOIN to a channel that does not exist.
+
+The setup page mirrors the same params into its *own* address bar with `replaceState`, so
+the page link is as good as the overlay link — reload it, bookmark it or send it and every
+box comes back filled in. It prefills through `readConfig` for that reason: the page has to
+read exactly what it writes. `stream-end-credits` and `stream-breaking-news` do the same.

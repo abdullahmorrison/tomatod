@@ -1,7 +1,7 @@
 // The setup page: turns a channel name into a Browser Source URL, and shows a live
 // preview of the effect so nobody has to go live to find out what it looks like.
 
-import { DEFAULTS, clampDuration, normalizeChannel } from './config.js';
+import { DEFAULTS, readConfig, clampDuration, normalizeChannel } from './config.js';
 import { TwitchChat } from './twitch-chat.js';
 import { TomatoShow } from './round.js';
 import { tomatoSprite } from './sprite.js';
@@ -33,8 +33,22 @@ function buildLink() {
   return url.toString();
 }
 
+/**
+ * Put the current settings in this page's own address bar. The page already reads these
+ * params on load, so this closes the loop: reload, bookmark or send the page link and it
+ * comes back with every box filled in, instead of losing the work to a stray refresh.
+ *
+ * replaceState, not pushState — nudging a duration should not fill the back button with
+ * every value it passed through on the way.
+ */
+function syncPageUrl() {
+  const { search } = new URL(buildLink());
+  history.replaceState(null, '', search || window.location.pathname);
+}
+
 function refreshLink() {
   linkEl.value = buildLink();
+  syncPageUrl();
   preview.timer.root.dataset.corner = cornerEl.value;
 }
 
@@ -134,11 +148,15 @@ for (const el of [channelEl, durationEl, cornerEl]) {
 }
 channelEl.addEventListener('change', checkChannel);
 
-// This page takes the same `channel` param as the overlay, so it can be handed to a
-// streamer with their name already in the box -- setup for someone else's channel is
-// otherwise a spelling test they have to pass before anything works.
-const named = normalizeChannel(new URLSearchParams(window.location.search).get('channel'));
-if (named) channelEl.value = named;
+// This page takes the same params as the overlay, through the same parser, so it can be
+// handed to a streamer with everything already chosen -- setup for someone else's channel
+// is otherwise a spelling test they have to pass before anything works. Reusing
+// readConfig is the point: if the two ever disagreed, a link would preview one thing and
+// install another.
+const incoming = readConfig(window.location.search);
+if (incoming.channel) channelEl.value = incoming.channel;
+durationEl.value = String(incoming.duration);
+cornerEl.value = incoming.corner;
 
 refreshLink();
 checkChannel();
