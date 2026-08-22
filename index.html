@@ -167,6 +167,28 @@
   }
   .colophon a { color: #ff8b7f; }
 
+  /* Made-by credit. Twitch's brand purple is #9146ff, but on this near-black ground it
+     lands at 4.07:1 -- under the 4.5 minimum for text this size. #a970ff is Twitch's own
+     lighter purple for dark themes and clears it at 5.8:1. */
+  .madeby {
+    margin: 8px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .madeby a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #a970ff;
+    font-weight: 700;
+    text-decoration: none;
+    vertical-align: text-bottom;
+  }
+  .madeby a:hover { text-decoration: underline; }
+  .madeby a:focus-visible { outline: 2px solid #a970ff; outline-offset: 2px; border-radius: 4px; }
+  .madeby svg { width: 1em; height: 1em; flex: none; fill: currentColor; }
+
   code {
     background: var(--panel-2);
     padding: 1px 6px;
@@ -266,6 +288,9 @@
     Free and open source —
     <a href="https://github.com/abdullahmorrison/tomatod">view the code on GitHub</a>.
     No accounts, no tracking, no backend at all.
+  </p>
+  <p class="madeby">
+    Made by <a href="https://twitch.tv/abdullahmorrison"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>abdullahmorrison</a>
   </p>
 
 </div>
